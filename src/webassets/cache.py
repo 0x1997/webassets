@@ -183,6 +183,8 @@ class FilesystemCache(BaseCache):
 
     def set(self, key, data):
         filename = path.join(self.directory, '%s' % make_md5(self.V, key))
+        if not path.exists(self.directory):
+            os.makedirs(self.directory)
         f = open(filename, 'wb')
         try:
             f.write(pickle.dumps(data))

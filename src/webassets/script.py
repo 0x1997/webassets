@@ -300,7 +300,8 @@ class CleanCommand(Command):
                 os.unlink(file_path)
                 self.log.info("Deleted asset: %s" % bundle.output)
         if isinstance(self.environment.cache, FilesystemCache):
-            shutil.rmtree(self.environment.cache.directory)
+            if os.path.exists(self.environment.cache.directory):
+                shutil.rmtree(self.environment.cache.directory)
 
 
 class CheckCommand(Command):
